@@ -1,11 +1,8 @@
 import { useState } from 'react';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Grid from '@mui/material/Grid';
+import { Typography, Paper, AppBar, Toolbar, Grid } from '@mui/material';
 
-import TodoList from './TodoList.js'
+import TodoList from './TodoList.js';
+import TodoForm from './TodoForm.js';
 
 export default function TodoApp() {
     const initialTodos = [
@@ -14,19 +11,23 @@ export default function TodoApp() {
         { id: 3, task: 'Vacuum the House', completed: false }
     ];
     const [todos, setTodos] = useState(initialTodos);
-    return (
-        <Paper style={{
-            padding: 0,
-            margin: 0,
-            height: '100vh',
-            backgroundColor: '#fafafa'
-        }} elevation={0}>
-            <AppBar color='primary' position='static' style={{ height: '64px' }}>
-                <Toolbar>
-                    <Typography color='inherit'>TODOS WITH HOOKS</Typography>
-                </Toolbar>
-            </AppBar>
-            <TodoList todos={todos} />
-        </Paper>
-    )
+    const addTodo = newTodoText => {
+        setTodos([ ...todos, { id: 4, task: newTodoText, completed: false}]);
+}
+return (
+    <Paper style={{
+        padding: 0,
+        margin: 0,
+        height: '100vh',
+        backgroundColor: '#fafafa'
+    }} elevation={0}>
+        <AppBar color='primary' position='static' style={{ height: '64px' }}>
+            <Toolbar>
+                <Typography color='inherit'>TODOS WITH HOOKS</Typography>
+            </Toolbar>
+        </AppBar>
+        <TodoForm addTodo={addTodo} />
+        <TodoList todos={todos} />
+    </Paper>
+)
 }
