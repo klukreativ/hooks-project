@@ -1,4 +1,5 @@
-import { Paper, List, ListItem, ListItemText, Divider } from '@mui/material';
+import { Paper, List, Divider } from '@mui/material';
+import Todo from './Todo';
 
 export default function TodoList(props) {
     return (
@@ -7,11 +8,7 @@ export default function TodoList(props) {
                 {props.todos.map(todo => (
                     // the <> & </> are JSX fragments to allow adjacent JSX elements
                     <>
-                        <ListItem>
-                            <ListItemText>
-                                {todo.task}
-                            </ListItemText>
-                        </ListItem>
+                        <Todo task={todo.task} key={todo.item} completed={todo.completed} />
                         <Divider />
                     </>
                 ))}
