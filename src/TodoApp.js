@@ -1,50 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Typography, Paper, AppBar, Toolbar, Grid } from '@mui/material';
-import { v4 as uuid } from 'uuid';
-
 import TodoList from './TodoList.js';
 import TodoForm from './TodoForm.js';
+import useTodoState from './hooks/useTodoState';
 
 export default function TodoApp() {
-    // initial todos when first rendering the page will be pulled from the localStorage or generated using the array provided below
-    const initialTodos = JSON.parse(window.localStorage.getItem('todos') || '[]'
-    // [
-    //     { id: 1, task: 'Clean Fishtank', completed: false },
-    //     { id: 2, task: 'Take out Garbage', completed: true },
-    //     { id: 3, task: 'Vacuum the House', completed: false }
-    // ]
-    )
-    
-    const [todos, setTodos] = useState(initialTodos);
+    // initial todos when first rendering the page will be pulled from the localStorage
+    const initialTodos = JSON.parse(window.localStorage.getItem('todos') || '[]')
+
+    // extracts hooks/functions from external hook file by passing in initialTodos to initialize todos
+    const {todos, addTodo, removeTodo, toggleTodo, editTodo} = useTodoState(initialTodos);
+
 
     // will run every time this component renders, saves to localStorage in browser
     useEffect(() => {
         window.localStorage.setItem('todos', JSON.stringify(todos));
     })
-
-    // copies Todo array, appends a new Todo to end with completed false and a randomly generated unique id
-    const addTodo = newTodoText => {
-        setTodos([...todos, { id: uuid(), task: newTodoText, completed: false }]);
-    }
-
-    // accepts an id, creates a duplicate array including all todos except the one matching the given id, then updates the original array with the duplicate
-    const removeTodo = todoId => {
-        const updatedTodos = todos.filter(todo => todo.id !== todoId);
-        setTodos(updatedTodos);
-    }
-
-    // accepts an id, creates a duplicate array of all todos, except id that matches, which changes its completed status to opposite (boolean value) then updates original array with the duplicate
-    const toggleTodo = todoId => {
-        const updatedTodos = todos.map(todo => todo.id === todoId ? { ...todo, completed: !todo.completed } : todo);
-        setTodos(updatedTodos);
-    }
-
-    // function accepts a todoId and the newTask to update
-    // filters through todos array creates a duplicate array, but when finds a match w/todoid it copies that toDo but assigns the new task to it's task, else it passes the unchanged todo
-    const editTodo = (todoId, newTask) => {
-        const updatedTodos = todos.map(todo => todo.id === todoId ? { ...todo, task: newTask } : todo);
-        setTodos(updatedTodos);
-    }
 
     return (
         <Paper style={{

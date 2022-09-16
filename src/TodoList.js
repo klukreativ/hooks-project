@@ -11,10 +11,8 @@ export default function TodoList({ todos, removeTodo, editTodo, toggleTodo }) {
                     // the <> & </> are JSX fragments to allow adjacent JSX elements
                     <>
                         <Todo
-                            id={todo.id}
+                            {...todo} //instead of passing down each individual object element, we pass the entire object 
                             key={todo.item}
-                            task={todo.task}
-                            completed={todo.completed}
                             removeTodo={removeTodo}
                             toggleTodo={toggleTodo}
                             editTodo={editTodo}

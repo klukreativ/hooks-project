@@ -19,7 +19,6 @@ export default function TodoForm({ addTodo }) {
                     fullWidth
                 />
             </form>
-            {value}
         </Paper>
     )
 }
