@@ -7,7 +7,7 @@ export default function Todo({ id, task, completed, removeTodo, toggleTodo, edit
     // initializing 
     const [isEditing, toggle] = useToggleState();
     return (
-        <ListItem>
+        <ListItem style={{height: '64px'}}>
             {isEditing ? (
                 <EditTodoForm id={id} editTodo={editTodo} task={task} toggleEditForm={toggle} />
             ) : (

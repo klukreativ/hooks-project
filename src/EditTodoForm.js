@@ -10,12 +10,16 @@ export default function EditTodoForm({ id, task, editTodo, toggleEditForm }) {
             editTodo(id, value);
             reset();
             toggleEditForm();
-        }}>
+        }}
+        style={{margin: '0 1rem', width: '100%'}} // brings edit field in line with todo styles
+        >
             <TextField
                 margin='normal'
                 value={value}
                 onChange={handleChange}
-                fullWidth
+                variant = "standard" // changes it from box to line
+                fullWidth                
+                autoFocus // allows user to type immediately after clicking edit button
             />
         </form>
     )

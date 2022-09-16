@@ -5,7 +5,7 @@ export default function TodoList({ todos, removeTodo, editTodo, toggleTodo }) {
     return (
         <Paper>
             <List>
-                {todos.map(todo => (
+                {todos.map((todo, i) => (
                     // the <> & </> are JSX fragments to allow adjacent JSX elements
                     <>
                         <Todo
@@ -17,7 +17,8 @@ export default function TodoList({ todos, removeTodo, editTodo, toggleTodo }) {
                             toggleTodo={toggleTodo}
                             editTodo={editTodo}
                         />
-                        <Divider />
+                        {/* compaers index against array length to avoid placing a divider on the last todo */}
+                        {i < todos.length -1 && <Divider />}                        
                     </>
                 ))}
             </List>
