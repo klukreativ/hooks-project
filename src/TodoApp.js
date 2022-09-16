@@ -1,21 +1,12 @@
-import { useEffect } from 'react';
 import { Typography, Paper, AppBar, Toolbar, Grid } from '@mui/material';
 import TodoList from './TodoList.js';
 import TodoForm from './TodoForm.js';
 import useTodoState from './hooks/useTodoState';
 
-export default function TodoApp() {
-    // initial todos when first rendering the page will be pulled from the localStorage
-    const initialTodos = JSON.parse(window.localStorage.getItem('todos') || '[]')
-
+export default function TodoApp() {   
+    const initialTodos = [{id: 1, task: 'Eat Cake', completed: false}];
     // extracts hooks/functions from external hook file by passing in initialTodos to initialize todos
-    const {todos, addTodo, removeTodo, toggleTodo, editTodo} = useTodoState(initialTodos);
-
-
-    // will run every time this component renders, saves to localStorage in browser
-    useEffect(() => {
-        window.localStorage.setItem('todos', JSON.stringify(todos));
-    })
+    const {todos, addTodo, removeTodo, toggleTodo, editTodo} = useTodoState(initialTodos);   
 
     return (
         <Paper style={{

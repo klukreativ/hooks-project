@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import useLocalStorageState from './useLocalStorageState';
 import { v4 as uuid } from 'uuid';
 
+/* originally used useState to to update localStorage, but now uses the hook useLocalStorageState which returns a useState function that initializes and saves to localStorage whenever todos state is changed */
 export default initialTodos => {
     // initializes the todo array by populating w/info from browser or default
-    const [todos, setTodos] = useState(initialTodos);
+    const [todos, setTodos] = useLocalStorageState('todos', initialTodos);
     return {
         todos,
         // copies Todo array, appends a new Todo to end with completed false and a randomly generated unique id
