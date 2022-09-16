@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Typography, Paper, AppBar, Toolbar, Grid } from '@mui/material';
 import { v4 as uuid } from 'uuid';
 
@@ -6,12 +6,21 @@ import TodoList from './TodoList.js';
 import TodoForm from './TodoForm.js';
 
 export default function TodoApp() {
-    const initialTodos = [
-        { id: 1, task: 'Clean Fishtank', completed: false },
-        { id: 2, task: 'Take out Garbage', completed: true },
-        { id: 3, task: 'Vacuum the House', completed: false }
-    ];
+    // initial todos when first rendering the page will be pulled from the localStorage or generated using the array provided below
+    const initialTodos = JSON.parse(window.localStorage.getItem('todos') || '[]'
+    // [
+    //     { id: 1, task: 'Clean Fishtank', completed: false },
+    //     { id: 2, task: 'Take out Garbage', completed: true },
+    //     { id: 3, task: 'Vacuum the House', completed: false }
+    // ]
+    )
+    
     const [todos, setTodos] = useState(initialTodos);
+
+    // will run every time this component renders, saves to localStorage in browser
+    useEffect(() => {
+        window.localStorage.setItem('todos', JSON.stringify(todos));
+    })
 
     // copies Todo array, appends a new Todo to end with completed false and a randomly generated unique id
     const addTodo = newTodoText => {

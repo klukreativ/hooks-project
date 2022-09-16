@@ -2,6 +2,8 @@ import { Paper, List, Divider } from '@mui/material';
 import Todo from './Todo';
 
 export default function TodoList({ todos, removeTodo, editTodo, toggleTodo }) {
+    // only renders the paper component if the todo array contains a value, if empty returns null and does not render
+    if (todos.length)
     return (
         <Paper>
             <List>
@@ -24,4 +26,5 @@ export default function TodoList({ todos, removeTodo, editTodo, toggleTodo }) {
             </List>
         </Paper>
     )
+    return null;
 }
